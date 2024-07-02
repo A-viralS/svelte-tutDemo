@@ -1,7 +1,7 @@
-//using the .server.js so that the file is not sent to the client side that is browser 
-export async function load({params}){
-    console.log(params);
-    return {
-        content: `This is the content for ${params.slug} `
-    }
+import { sql } from "@vercel/postgres";
+
+export async function load({ params,locals }) {
+  return {
+    names: await sql`SELECT * from NAMES where user_id='${locals.user}'`
+  }
 }
